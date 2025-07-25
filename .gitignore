@@ -1,0 +1,32 @@
+# ============ BACKEND ============ #
+/backend/.venv
+/backend/.env
+/backend/**/__pycache__/
+/backend/*.py[cod]
+
+# ============ FRONTEND ============ #
+/frontend/node_modules/
+/frontend/.output/
+/frontend/.vercel/
+/frontend/.netlify/
+/frontend/.wrangler/
+/frontend/.svelte-kit/
+/frontend/build/
+
+# ======= ARQUIVOS GLOBAIS ======= #
+.DS_Store
+Thumbs.db
+
+# ========== ENV FILES ========== #
+# Backend
+/backend/.env*
+!/backend/.env.example  # Exceção (não ignora)
+
+# Frontend
+/frontend/.env*
+!/frontend/.env.example  # Exceção (não ignora)
+!/frontend/.env.test     # Exceção (não ignora)
+
+# ======== TOOLS/CACHE ======== #
+# Vite (Frontend)
+/frontend/vite.config.*.timestamp-*

@@ -1,0 +1,24 @@
+from pydantic import BaseModel, EmailStr
+
+class UserCreate(BaseModel):
+    username: str
+    email: EmailStr
+    password: str
+
+class UserUpdate(BaseModel):
+    id: int
+    username: str | None = None
+    email: str | None = None
+    password: str | None = None
+
+class UserResponse(BaseModel):
+    id: int
+    username: str
+    email: str
+
+    class Config:
+        from_attributes = True
+
+class UserListResponse(BaseModel):
+    users: list[UserResponse]
+    count: int
