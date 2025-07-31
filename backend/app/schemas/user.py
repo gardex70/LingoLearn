@@ -16,8 +16,6 @@ class UserResponse(BaseModel):
     username: str
     email: str
 
-    class Config:
-        from_attributes = True
 
 class UserListResponse(BaseModel):
     users: list[UserResponse]

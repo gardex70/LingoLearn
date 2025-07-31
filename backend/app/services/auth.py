@@ -3,21 +3,20 @@ from schemas.auth import Token
 from core.security import verify_password
 from repositories.user import UserRepository
 from core.security import create_access_token
+from sqlalchemy.orm import Session
+from core.logging import logging
 
-class AuthService:
-    def __init__(self, user_repository: UserRepository):
-        self.user_repo = user_repository
+def authenticate_user(db: Session, email: EmailStr, password: str) -> Token | bool:
+    user = UserRepository(db).get_by(email=email)
+    
+    if not user or not verify_password(password, user.password):
+        logging.warning(f"Failed authentication attempt for email: {email}")
+        return False
 
-    def authenticate_user(self, email: EmailStr, password: str) -> Token | None:
-        user = self.user_repo.get_user_by_email(email)
-        
-        if not user or not verify_password(password, user.password):
-            return None
+    token_data = {"sub": user.email}
+    access_token = create_access_token(token_data)
 
-        token_data = {"sub": user.email}
-        access_token = create_access_token(token_data)
-
-        return {
-            "access_token": access_token,
-            "token_type": "bearer"
+    return {
+        "access_token": access_token,
+        "token_type": "bearer"
         }

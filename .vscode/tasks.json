@@ -1,0 +1,59 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Frontend",
+            "type": "shell",
+            "command": "npm run dev -- --reload",
+            "options": {
+                "cwd": "${workspaceFolder}/frontend"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "panel": "dedicated"
+            }
+        },
+        {
+            "label": "Backend",
+            "type": "shell",
+            "command": "..\\.venv\\Scripts\\activate; uvicorn main:app --reload",
+            "options": {
+                "cwd": "${workspaceFolder}/backend/app"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "panel": "dedicated"
+            }
+        },
+        {
+            "label": "Start All",
+            "dependsOn": [
+                "Frontend",
+                "Backend"
+            ],
+            "dependsOrder": "parallel",
+            "problemMatcher": []
+        },
+        {
+            "label": "Database",
+            "type": "shell",
+            "command": "sqlite3 sql_app.db",
+            "options": {
+                "cwd": "${workspaceFolder}/backend/app"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "panel": "dedicated"
+            }
+        }
+    ]
+}
