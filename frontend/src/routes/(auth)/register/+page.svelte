@@ -55,6 +55,10 @@
                 {/if}
             </button>
       </form>
+
+      <div class="signup-section">
+        <p>Já tem uma conta? <a href="/login" class="signup-link">Fazer Login</a></p>
+      </div>
     </div>
   </div>
   

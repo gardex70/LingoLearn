@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@lucide/svelte": "^0.536.0"
+  },
+  "devDependencies": {
+    "sass-embedded": "^1.89.2"
+  }
+}

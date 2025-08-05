@@ -1,7 +1,10 @@
 <script lang="ts">
-    import type { PageData } from '../home/profile/$types';
-
-    export let data: PageData;
+    import { Sidebar } from "$lib/components/layout/";
 </script>
 
-a
+<Sidebar
+    user = {{
+        name: "Gabriel",
+        email: "gabrielpabrahao@gmail.com"
+    }}
+/>
