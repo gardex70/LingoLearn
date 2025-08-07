@@ -4,10 +4,6 @@ from jose import jwt
 from jose.exceptions import JWTError, ExpiredSignatureError
 from datetime import datetime, timedelta, timezone
 from .config import settings
-import logging
-
-# Configuração de logging
-logger = logging.getLogger(__name__)
 
 def hash_password(password: str) -> str:
     try:
@@ -15,7 +11,6 @@ def hash_password(password: str) -> str:
         return hashed.decode('utf-8')
     
     except Exception as e:
-        logger.error(f"Erro ao gerar hash: {str(e)}")
         raise ValueError("Falha ao processar senha")
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
@@ -25,7 +20,6 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
             hashed_password.encode('utf-8')
         )
     except Exception as e:
-        logger.error(f"Erro na verificação: {str(e)}")
         return False
 
 def create_access_token(data: dict) -> str:
@@ -39,7 +33,6 @@ def create_access_token(data: dict) -> str:
             algorithm=settings.JWT_ALGORITHM
         )
     except Exception as e:
-        logger.error(f"Erro ao criar token: {str(e)}")
         raise
 
 def decode_token(token: str) -> dict:
@@ -52,8 +45,6 @@ def decode_token(token: str) -> dict:
         )
         return payload
     except ExpiredSignatureError:
-        logger.error("Token expirado")
         raise HTTPException(status_code=401, detail="Token expirado")
     except JWTError as e:
-        logger.error(f"Token inválido: {str(e)}")
         raise HTTPException(status_code=401, detail="Token inválido")

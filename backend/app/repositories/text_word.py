@@ -1,8 +1,9 @@
 from sqlalchemy.orm import Session
-from models import User
+from models import TextWord
 from .base_repository import BaseRepository
 
-class UserRepository(BaseRepository[User]):
+class TextWordRepository(BaseRepository[TextWord]):
     def __init__(self, db: Session):
-        super().__init__(User, db)
+        super().__init__(TextWord, db)
+
     

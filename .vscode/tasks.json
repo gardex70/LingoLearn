@@ -54,6 +54,20 @@
             "presentation": {
                 "panel": "dedicated"
             }
+        },
+        {
+            "label": "Kill Port 5173",
+            "type": "shell",
+            "command": "for /f \"tokens=5\" %a in ('netstat -aon ^| findstr :5173') do taskkill /PID %a /F",
+            "windows": {
+                "command": "for /f \"tokens=5\" %a in ('netstat -aon ^| findstr :5173') do taskkill /PID %a /F"
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "panel": "dedicated"
+            }
         }
     ]
 }

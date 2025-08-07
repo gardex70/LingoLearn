@@ -1,12 +1,10 @@
-from models.user import User
 from core.security import hash_password
 from core.exceptions import UserAlreadyExistsError
 from repositories.user import UserRepository
-from schemas.user import UserCreate
+from schemas.user import UserCreate, UserResponse
 from sqlalchemy.orm import Session
-from core.logging import logging
 
-def register_user(db: Session, user_data: UserCreate) -> User:
+def register_user(db: Session, user_data: UserCreate) -> UserResponse:
     try:
         user_repo = UserRepository(db)
 
@@ -19,14 +17,19 @@ def register_user(db: Session, user_data: UserCreate) -> User:
             "password": hash_password(user_data.password)
         }
         
-        new_user = user_repo.create(user_to_create)
+        new_user = user_repo.create(**user_to_create)
         
         db.commit()
         db.refresh(new_user)
 
-        return new_user
-    except Exception as e:
-        logging.error(f"Failed to register user: {user_data.email}. Error: {str(e)}")
+        user_response = UserResponse(
+            id=new_user.id,
+            email=new_user.email,
+            username=new_user.username
+        )
+        
+        return user_response
+    except Exception:
         db.rollback()
         raise
     

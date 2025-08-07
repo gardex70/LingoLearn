@@ -14,3 +14,7 @@ def get_db():
         yield database
     finally:
         database.close()
+
+if __name__=="__main__":
+    from app.models import *  
+    Base.metadata.create_all(bind=engine)

@@ -11,4 +11,4 @@ class User(BaseModel):
 
     #Relationship
     texts: Mapped[list["Text"]] = relationship(back_populates="user")
-    words: Mapped[list["Word"]] = relationship(back_populates="user")
+    words: Mapped[list["UserWord"]] = relationship(back_populates="user")

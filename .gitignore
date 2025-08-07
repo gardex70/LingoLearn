@@ -3,6 +3,7 @@
 /backend/.env
 /backend/**/__pycache__/
 /backend/*.py[cod]
+/backend/app/sql_app.db
 
 # ============ FRONTEND ============ #
 /frontend/node_modules/

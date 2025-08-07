@@ -1,8 +1,9 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
-from api.routes import auth, users, texts
+from routers import auth, users, texts
 from database.connection import engine, Base
-
+from core.exceptions import *
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
@@ -11,6 +12,18 @@ origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
 ]
+
+@app.exception_handler(AppError)
+async def app_exception_handler(request: Request, exc: AppError):
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={
+            "error": {
+                "type": exc.__class__.__name__,
+                "message": str(exc.message),
+            }
+        }
+    )
 
 app.add_middleware(
     CORSMiddleware,

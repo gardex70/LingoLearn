@@ -1,28 +1,30 @@
-from fastapi import HTTPException
+class AppError(Exception):
+    def __init__(self, status_code=500, message="Ocorreu um erro inesperado", headers: dict | None = None ):
+        self.status_code = status_code
+        self.message = message
+        self.headers = headers
 
-class UserError(HTTPException):
-    """Base exception for user-related errors"""
-    def __init__(self, status_code: int, detail: str, headers: dict | None = None):
-        super().__init__(status_code=status_code, detail=detail, headers=headers)
 
-class UserNotFoundError(UserError):
+class UserNotFoundError(AppError):
     def __init__(self, user_id=None):
         message = "User not found" if user_id is None else f"User with id {user_id} not found"
-        super().__init__(status_code=404, detail=message)
+        super().__init__(status_code=404, message=message)
 
-class UserAlreadyExistsError(UserError):
+
+class UserAlreadyExistsError(AppError):
     def __init__(self, email):
-        super().__init__(status_code=400, detail=f'User with email "{email}" already exists')
+        message = f'User with email "{email}" already exists'
+        super().__init__(status_code=400, message=message)
 
-class PasswordMismatchError(UserError):
+
+class InvalidPasswordError(AppError):
     def __init__(self):
-        super().__init__(status_code=400, detail="New passwords do not match")
+        message="Current password is incorrect"
+        super().__init__(status_code=401, message=message)
 
-class InvalidPasswordError(UserError):
-    def __init__(self):
-        super().__init__(status_code=401, detail="Current password is incorrect")
 
-class AuthenticationError(UserError):
-    def __init__(self, message: str = "Could not validate user"):
-        super().__init__(status_code=401, detail=message)
-
+class AuthenticationError(AppError):
+    def __init__(self, email):
+        message = f'Could not authenticate user with email "{email}"'
+        headers = {"WWW-Authenticate": "Bearer"}
+        super().__init__(status_code=401, message=message, headers=headers)
