@@ -3,10 +3,10 @@
     type Size = 'small' | 'medium' | 'large' | 'fullWidth';
 
     interface ButtonProps {
-        children: any;
-        variant?: Variant;
-        size?: Size;
-        [key: string]: unknown; // permite desconstruir {...rest}
+        children: any
+        variant?: Variant
+        size?: Size
+        [key: string]: unknown // permite desconstruir {...rest}
     }
 
     let {
@@ -74,21 +74,22 @@
 
 /* Sizes */
 .small {
-  padding: 0.5rem 0.75rem;
-  font-size: 0.875rem;
+    max-height: 40px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
 }
 
 .medium {
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
 }
 
 .large {
-  padding: 1rem 1.5rem;
-  font-size: 1.1rem;
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
 }
 
 .fullWidth {
-  width: 100%;
+    width: 100%;
 }
 </style>

@@ -4,10 +4,10 @@
     
     export interface SidebarItemType {
         page: string
-        label: string;
-        icon: Component;
-        isActive?: boolean;
-        style?: 'blue' | 'red';
+        label: string
+        icon: Component
+        isActive?: boolean
+        style?: 'blue' | 'red'
     }
 
     interface SidebarItemProps {

@@ -43,7 +43,12 @@ color: inherit;
 }
 
 input,
-textarea {
+textarea, select {
   font-family: inherit;
   outline: none;
+  background: var(--background-white);
+  border-radius: 8px;
+  padding: 0.5rem;
+  border: 1px solid var(--border);
 }
+

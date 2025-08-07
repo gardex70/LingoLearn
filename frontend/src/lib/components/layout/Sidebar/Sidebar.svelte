@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { User, CircleUserRound, House, Users, LogOut } from '@lucide/svelte';
-    import Logo from '$lib/components/Logo.svelte';
+    import { User, CircleUserRound, House, LibraryBig, LogOut } from '@lucide/svelte';
+    import Logo from '$lib/components/ui/Logo.svelte';
 	import SidebarItem from './SidebarItem.svelte';
     import type { SidebarItemType } from './SidebarItem.svelte'; 
 	import { page } from '$app/state';
@@ -22,7 +22,7 @@
 
     const items: SidebarItemType[] = [
 		{ page: "/home", label: "Início", icon: House},
-		{ page: "/users", label: "Usuários", icon: Users, style: "red" }
+		{ page: "/texts", label: "Biblioteca", icon: LibraryBig }
 	];
     let updatedItems = items.map(item => ({
         ...item,
@@ -76,17 +76,14 @@
 
 <style>
     .sidebar {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 280px;
-        height: 100vh;
-        background: var(--background-white);
-        border-right: 1px solid var(--border-light);
-        display: flex;
-        flex-direction: column;
-        z-index: 100;
-    }
+    width: 280px;
+    height: 100vh;
+    background: var(--background-white);
+    border-right: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+}
 
     .header {
         padding: 1.5rem;

@@ -1,12 +1,11 @@
 <script lang="ts">
-    import { Users, Trophy} from '@lucide/svelte';
 	import type { Snippet } from "svelte";
 
     interface HeroProps {
-        title: string;
-        subtitle: string;
-        actions: Snippet;
-        illustration: Snippet;
+        title: string
+        subtitle: string
+        actions: Snippet
+        illustration: Snippet
     }
 
     let {title, subtitle, actions, illustration}: HeroProps = $props();
