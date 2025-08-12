@@ -1,7 +1,8 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, Header
 from fastapi.security import OAuth2PasswordRequestForm
+from core.security import decode_token
 from sqlalchemy.orm import Session
-from schemas.auth import Token
+from schemas.auth import Token, TokenResponse
 from database.connection import get_db
 from services.auth import authenticate_user
 
@@ -14,10 +15,20 @@ async def login(
 ):
     
     token = authenticate_user(db, email=form_data.username, password=form_data.password)
-    if not token:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Credenciais inválidas",
-            headers={"WWW-Authenticate": "Bearer"}
-        )
+  
     return token
+
+@router.get("/", response_model=TokenResponse)
+async def validate_token(
+    authorization: str = Header(...)
+):
+    token = authorization.replace("Bearer ", "") if authorization.startswith("Bearer ") else authorization
+    decoded_token = decode_token(token)
+
+    return TokenResponse(
+        sub=decoded_token["sub"],
+        email=decoded_token.get("email"),
+        username=decoded_token.get("username")
+    )
+    
+

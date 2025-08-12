@@ -9,13 +9,13 @@ def authenticate_user(db: Session, email: EmailStr, password: str) -> Token:
     user = UserRepository(db).get_by(email=email)
     
     if not user or not verify_password(password, user.password):
-        return AuthenticationError(email)
+        raise AuthenticationError(email)
 
-    token_data = {"sub": user.email}
+    token_data = {"sub": str(user.id), "email": user.email, "username": user.username}
 
     access_token = create_access_token(token_data)
     if not access_token:
-        AuthenticationError(email)
+        raise AuthenticationError(email)
 
     token = {
         "access_token": access_token,

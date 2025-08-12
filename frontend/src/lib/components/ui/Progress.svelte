@@ -18,6 +18,7 @@
         display: flex;
         align-items: center;
         gap: 0.5rem;
+        min-width: 500px;
     }
 
     .progress-bar {
@@ -30,14 +31,16 @@
 
     .progress-fill {
         height: 100%;
-        background-color: #4caf50;
+        background-color: var(--primary-blue);
         transition: width 0.3s ease;
     }
 
     .progress-text {
-        font-size: 0.9rem;
-        color: #555;
+        font-size: 1.3rem;
+        font-weight: 1000;
+        color: var(--primary-blue);
         min-width: 40px;
         text-align: right;
+        margin-left: 1rem
     }
 </style>

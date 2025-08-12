@@ -4,6 +4,8 @@ from jose import jwt
 from jose.exceptions import JWTError, ExpiredSignatureError
 from datetime import datetime, timedelta, timezone
 from .config import settings
+from schemas.auth import TokenResponse
+from .exceptions import InvalidTokenError
 
 def hash_password(password: str) -> str:
     try:
@@ -40,11 +42,11 @@ def decode_token(token: str) -> dict:
     try:
         payload = jwt.decode(
             token,
-            settings.SECRET_KEY,
-            algorithms=[settings.ALGORITHM]
+            settings.JWT_KEY,
+            algorithms=[settings.JWT_ALGORITHM]
         )
         return payload
     except ExpiredSignatureError:
-        raise HTTPException(status_code=401, detail="Token expirado")
+        raise InvalidTokenError(message="Token expirado")
     except JWTError as e:
-        raise HTTPException(status_code=401, detail="Token inválido")
+        raise InvalidTokenError(message="Token inválido")

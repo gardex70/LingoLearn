@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request
+from fastapi.exceptions import HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from routers import auth, users, texts
@@ -15,12 +16,12 @@ origins = [
 
 @app.exception_handler(AppError)
 async def app_exception_handler(request: Request, exc: AppError):
-    return JSONResponse(
+    raise HTTPException(
         status_code=exc.status_code,
-        content={
+        detail={
             "error": {
                 "type": exc.__class__.__name__,
-                "message": str(exc.message),
+                "message": exc.message,
             }
         }
     )

@@ -1,10 +1,12 @@
 <script lang="ts">
     import Sidebar from "$lib/components/layout/Sidebar/Sidebar.svelte";
+	import { Button } from "$lib/components/ui";
 </script>
 
-<Sidebar
-    user = {{
-        name: "Gabriel",
-        email: "gabrielpabrahao@gmail.com"
-    }}
-/>
+
+
+<Button
+    onclick={() => {alert("cliado")}}
+>
+    CLique
+</Button>

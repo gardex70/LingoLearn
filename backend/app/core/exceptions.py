@@ -7,24 +7,28 @@ class AppError(Exception):
 
 class UserNotFoundError(AppError):
     def __init__(self, user_id=None):
-        message = "User not found" if user_id is None else f"User with id {user_id} not found"
+        message = "Usuário não encontrado" if user_id is None else f"Não foi encontrado usuário com id: {user_id}"
         super().__init__(status_code=404, message=message)
 
 
 class UserAlreadyExistsError(AppError):
     def __init__(self, email):
-        message = f'User with email "{email}" already exists'
+        message = f'Usuário com email: {email} já existe'
         super().__init__(status_code=400, message=message)
 
 
 class InvalidPasswordError(AppError):
     def __init__(self):
-        message="Current password is incorrect"
+        message="A senha inserida está incorreta"
         super().__init__(status_code=401, message=message)
 
 
 class AuthenticationError(AppError):
     def __init__(self, email):
-        message = f'Could not authenticate user with email "{email}"'
+        message = f'Não foi possível autenticar usuário com email: {email}'
         headers = {"WWW-Authenticate": "Bearer"}
         super().__init__(status_code=401, message=message, headers=headers)
+
+class InvalidTokenError(AppError):
+    def __init__(self, message):
+        super().__init__(status_code=401, message=message)

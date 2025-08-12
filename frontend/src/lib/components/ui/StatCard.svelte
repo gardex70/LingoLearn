@@ -32,11 +32,17 @@
 <style>
     .stat-card {
         display: flex;
-        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .icon {
+        align-self: center;
+        color: var(--primary-blue);
     }
 
     .content {
         display: flex;
+        flex-direction: column;
         gap: 0.25rem;
     }
 

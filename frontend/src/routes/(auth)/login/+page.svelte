@@ -27,7 +27,7 @@
     >
       {#if form && form.success === false}
         <div class="error-message">
-          {form?.erro ?? 'Erro ao fazer login. Verifique suas credenciais.'}
+          {form?.error ?? 'Erro ao fazer login. Verifique suas credenciais.'}
         </div>
       {/if}
 

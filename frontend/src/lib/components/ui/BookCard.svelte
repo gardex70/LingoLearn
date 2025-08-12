@@ -64,7 +64,7 @@
             />
            
         </div>
-        <div class="footer">
+        <div class="buttons">
             <Button
                 size='small'
                 onclick={() => goto(`/texts/${bookCard.id}`)}
@@ -91,16 +91,19 @@
         border-radius: 8px;
         display: flex;
         gap: 1rem;
+        
     }
 
     .content {
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
+        flex: 1;
     }
 
     .middle {
-        
+        display: flex;
+        justify-content: space-between;
     }
 
     img {
@@ -108,5 +111,10 @@
         width: 80px;
         object-fit: cover;
         border-radius: 8px;
+    }
+
+    .buttons {
+        display: flex;
+        gap: 1rem;
     }
 </style>

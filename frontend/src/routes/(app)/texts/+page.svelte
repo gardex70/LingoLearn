@@ -128,4 +128,8 @@
         background: var(--primary-blue);
         color: var(--background-white)
     }
+
+    .text-body {
+        margin-top: 1rem;
+    }
 </style>
