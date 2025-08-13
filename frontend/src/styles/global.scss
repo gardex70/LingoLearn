@@ -4,12 +4,14 @@
     --primary-blue-light: #dbeafe;
     --background-light: #f8fafc;
     --background-white: #ffffff;
+    --background-gray: #f1f5f9;
     --text-primary: #1e293b;
     --text-secondary: #64748b;
     --error-red: #ef4444;
     --error-red-light: rgba(239, 68, 68, 0.1);
     --border-light: #e2e8f0;
     --border: hsl(240 5.9% 90%);
+    --border-focus: #ccc;
     --ring: hsl(240 10% 3.9%);
 }
 
@@ -50,5 +52,9 @@ textarea, select {
   border-radius: 8px;
   padding: 0.5rem;
   border: 1px solid var(--border);
+}
+
+input:focus {
+    outline: 2px solid var(--border-focus);
 }
 

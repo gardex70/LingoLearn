@@ -22,8 +22,15 @@ export const load = (async ({ cookies }) => {
 
         const userData = await res.json();
 
+        const transformedUser = {
+            id: userData.sub,
+            email: userData.email,
+            username: userData.username
+           
+        };
+
         return {
-            user: userData,
+            user: transformedUser,
             isAuthenticated: true
         }
 

@@ -1,21 +1,19 @@
 <script lang="ts">
     import Sidebar from "$lib/components/layout/Sidebar/Sidebar.svelte";
+	import BookModal from "$lib/components/modals/BookModal.svelte";
 	import { Button, Search } from "$lib/components/ui";
 	import BookList from "$lib/components/ui/BookList.svelte";
     import { Upload, Grid3x3, List } from "@lucide/svelte";
-	
+    
     type View = 'grid' | 'list';
-    let view: View = $state('list');
+    let bookView: View = $state('list');
+    let isShowBookModal: boolean = $state(false);
 
 </script>
 
 <main>
-    <Sidebar
-    user = {{
-        name: "Gabriel",
-        email: "gabrielpabrahao@gmail.com"
-    }}
-    />
+    <Sidebar/>
+
     <section>
         <header>
             <div class="header-title">
@@ -24,6 +22,7 @@
             </div>
             <Button
                 size='small'
+                onclick={() => isShowBookModal=true}
             >
                 <Upload size={20}/>
                 Adicionar livro
@@ -53,16 +52,16 @@
             <div class="view">
                 <button 
                 class="button-left"
-                class:active={ view === 'grid'}
-                onclick={() => view = 'grid'}
+                class:active={ bookView === 'grid'}
+                onclick={() => bookView = 'grid'}
                 >
                     <Grid3x3 size={20}/>
                 </button>
 
                 <button
                     class="button-right"
-                    class:active={ view === 'list'}
-                    onclick={() => view = 'list'}
+                    class:active={ bookView === 'list'}
+                    onclick={() => bookView = 'list'}
                 >
                     <List size={20}/>
                 </button>
@@ -70,13 +69,19 @@
         </div>
 
         <div class="text-body">
-            {#if view == 'grid'}
+            {#if bookView == 'grid'}
                 <h1>Grid</h1>
             {:else}
                 <BookList/>
             {/if}
         </div>
     </section>
+
+    <BookModal
+        isOpen={isShowBookModal}
+        onClose={() => isShowBookModal=false}
+        onSave={() => isShowBookModal=false}
+    />
 </main>
     
    

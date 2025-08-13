@@ -9,7 +9,7 @@ def import_text(db: Session, text_data: TextImport) -> TextResponse:
         text_to_create = {
             "user_id": text_data.user_id,
             "title": text_data.title,
-            "autor": text_data.autor,
+            "autor": text_data.author,
             "language": text_data.language,
             "total_words": get_text_total_words(text_data.content)
         }
@@ -43,7 +43,7 @@ def import_text(db: Session, text_data: TextImport) -> TextResponse:
             id=new_text.id,
             user_id=new_text.user_id,
             title=new_text.title,
-            autor=new_text.autor,
+            author=new_text.autor,
             language=new_text.language
         )
 

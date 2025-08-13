@@ -5,17 +5,13 @@
     import type { SidebarItemType } from './SidebarItem.svelte'; 
 	import { page } from '$app/state';
 
-    interface UserType {
-        avatar?: string
-        name?: string
-        email?: string
-    }
 
-    interface SidebarProps {
-        user: UserType
-    }
-
-    let { user }: SidebarProps = $props();
+    let user = {
+        id: page.data.user.id,
+        name: page.data.user.username,
+        email: page.data.user.email,
+        avatar: ''
+    };
     
     const GROUP_REGEX = /\([^)]*\)\//g;
     let currentPage = page.route.id?.replace(GROUP_REGEX, '');
