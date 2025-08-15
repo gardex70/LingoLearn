@@ -13,6 +13,16 @@ class TextResponse(BaseModel):
     title: str
     author: str
     language: str
+    total_know_words: int
+    total_words: int
+
+class TextListResponse(BaseModel):
+    texts: list[TextResponse]
+    total: int
+    page: int
+    per_page: int
+    total_pages: int
+
 
     
     

@@ -25,12 +25,11 @@
     interface BookModalProps {
         isOpen: boolean
         onClose: () => void
-        onSave: (book: BookFormData) => void
         book?: Book | null
     }
 
 
-    let { isOpen, onClose, onSave, book }: BookModalProps = $props();
+    let { isOpen, onClose, book }: BookModalProps = $props();
 
     let bookForm: BookFormData = $state({
         author:'',
@@ -70,11 +69,9 @@
             body: JSON.stringify(bookForm)
         });
 
-        console.log(res);
+        onClose();
 
     }
-
-    $inspect(bookForm);
 
 </script>
 

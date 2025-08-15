@@ -8,7 +8,7 @@ class Text(BaseModel):
 
     user_id: Mapped[int] = mapped_column(ForeignKey("User.id"))
     title: Mapped[str] = mapped_column(String(255), nullable=False)
-    autor: Mapped[str] = mapped_column(String(255))
+    author: Mapped[str] = mapped_column(String(255))
     language: Mapped[str] = mapped_column(String(10), nullable=False)
     total_know_words: Mapped[int] = mapped_column(Integer, default=0)
     total_words: Mapped[int] = mapped_column(Integer)

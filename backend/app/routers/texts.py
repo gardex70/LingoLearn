@@ -1,7 +1,7 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
-from services.text import import_text
-from schemas.text import TextImport, TextResponse
+from services.text import import_text, get_text_list
+from schemas.text import TextImport, TextResponse, TextListResponse
 from database.connection import get_db
 
 router = APIRouter(prefix="/texts", tags=["texts"])
@@ -12,4 +12,14 @@ def create_text_endpoint(
     db: Session = Depends(get_db)
 ):  
     return import_text(db, text)
+
+@router.get("/", response_model=TextListResponse)
+def list_texts(
+    user_id: int,
+    page: int = 1,
+    top: int = 10,
+    query: str = '',
+    db: Session = Depends(get_db)
+):
+    return get_text_list(db=db, user_id=user_id, top=top, page=page, query=query)
    

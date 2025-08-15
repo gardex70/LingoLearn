@@ -1,10 +1,8 @@
 import bcrypt
-from fastapi import HTTPException
 from jose import jwt
 from jose.exceptions import JWTError, ExpiredSignatureError
 from datetime import datetime, timedelta, timezone
 from .config import settings
-from schemas.auth import TokenResponse
 from .exceptions import InvalidTokenError
 
 def hash_password(password: str) -> str:

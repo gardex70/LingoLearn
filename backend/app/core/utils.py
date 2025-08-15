@@ -10,4 +10,6 @@ def parse_text_into_pages(text: str, words_per_page: int) -> list[str]:
     return pages
 
 def get_text_total_words(text:str) -> int:
-    return len(text.lower().strip().split())
+    words = text.lower().strip().split()
+    unique_words = set(words)
+    return len(unique_words)

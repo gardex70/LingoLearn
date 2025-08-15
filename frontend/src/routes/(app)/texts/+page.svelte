@@ -1,13 +1,36 @@
 <script lang="ts">
+	import { page } from "$app/state";
     import Sidebar from "$lib/components/layout/Sidebar/Sidebar.svelte";
-	import BookModal from "$lib/components/modals/BookModal.svelte";
-	import { Button, Search } from "$lib/components/ui";
-	import BookList from "$lib/components/ui/BookList.svelte";
+	import BookModal from "$lib/components/modals/TextModal.svelte";
+	import { Button, Search, TextList } from "$lib/components/ui";
+    import type { TextType } from "$lib/components/ui/TextCard.svelte";
     import { Upload, Grid3x3, List } from "@lucide/svelte";
+	import { onMount } from "svelte";
     
     type View = 'grid' | 'list';
     let bookView: View = $state('list');
     let isShowBookModal: boolean = $state(false);
+    let texts: TextType[] = $state([]);
+    onMount( async () => {
+        let userId = page.data.user.id
+        let query = `user_id=${userId}`
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/texts?${query}`);
+        const data = await res.json();
+
+        for (const text of data.texts) {
+            const formattedText: TextType = {
+                id: text.id,
+                author: text.author,
+                title: text.tile,
+                language: text.language,
+                totalWords: text.total_words,
+                totalKnowWords: text.total_know_words
+                
+            }
+            texts.push(formattedText);
+        }
+     
+    });
 
 </script>
 
@@ -49,6 +72,7 @@
                 <option>A-Z</option>
                 <option>Z-A</option>
             </select>
+
             <div class="view">
                 <button 
                 class="button-left"
@@ -72,7 +96,7 @@
             {#if bookView == 'grid'}
                 <h1>Grid</h1>
             {:else}
-                <BookList/>
+                <TextList {texts}/>
             {/if}
         </div>
     </section>
@@ -80,7 +104,6 @@
     <BookModal
         isOpen={isShowBookModal}
         onClose={() => isShowBookModal=false}
-        onSave={() => isShowBookModal=false}
     />
 </main>
     

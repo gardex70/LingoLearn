@@ -3,27 +3,26 @@
 	import { Button, Progress, StatCard } from ".";
 	import { goto } from "$app/navigation";
 
-
-    interface BookCardType {
+    export interface TextType {
         id: number
         title: string
-        autor: string
-        img_path?: string
+        author: string
         language: string
-        know_words: number
-        total_unique_words: number 
+        totalWords: number
+        totalKnowWords: number 
+        img_path?: string
     }
 
-    interface BookCardProps {
-        bookCard: BookCardType
+    interface TextCardProps {
+        text: TextType
+        onDetail: (textId: number) => void
     }
 
-    let { bookCard }: BookCardProps = $props();
-
-    bookCard.img_path ??= '/default_book.png';
+    let { text, onDetail }: TextCardProps = $props();
+    text.img_path ??= '/default_book.png';
 
     let percentage = $derived.by(() => {
-        return bookCard.total_unique_words > 0 ? Math.round((bookCard.know_words / bookCard.total_unique_words)  * 100) : 0
+        return text.totalWords > 0 ? Math.round((text.totalKnowWords / text.totalWords)  * 100) : 0
     });
 
 </script>
@@ -32,26 +31,26 @@
 <div class="card">
     <div class="img">
         <div>
-            <img src={bookCard.img_path} alt="">
+            <img src={text.img_path} alt="">
         </div>
     </div>
     <div class="content">
         <div class="top">
-            <h2>{bookCard.title}</h2>
-            <p>{bookCard.autor}</p>
-            <p>{bookCard.language}</p>
+            <h2>{text.title}</h2>
+            <p>{text.author}</p>
+            <p>{text.language}</p>
         </div>
         <div class="middle">
             <Progress
-                current={10}
-                total={20}
+                current={text.totalKnowWords}
+                total={text.totalWords}
             />
 
             <StatCard
             statCard={{
                 icon:BookOpen,
-                primary:String(bookCard.know_words),
-                secondary:`de ${bookCard.total_unique_words} palavras`
+                primary:String(text.totalKnowWords),
+                secondary:`de ${text.totalWords} palavras`
             }} 
             />
 
@@ -67,7 +66,7 @@
         <div class="buttons">
             <Button
                 size='small'
-                onclick={() => goto(`/texts/${bookCard.id}`)}
+                onclick={() => goto(`/texts/${text.id}`)}
             >
                 <BookOpen />
                 Continuar leitura
@@ -75,6 +74,7 @@
             <Button
                 size='small'
                 variant='outline'
+                onclick={() => onDetail(text.id)}
             >
                 <Eye/>
                 Detalhes
